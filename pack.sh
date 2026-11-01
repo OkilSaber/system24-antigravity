@@ -8,6 +8,8 @@ v=$(node -p "require('./package.json').version"); pub=$(node -p "require('./pack
 sed -e "s/__VERSION__/$v/" -e "s/__PUBLISHER__/$pub/" vsix/extension.vsixmanifest > .pack/extension.vsixmanifest
 cp "vsix/[Content_Types].xml" .pack/
 cp -R package.json README.md LICENSE.md themes .pack/extension/
-(cd .pack && zip -q -r ../system24.vsix "[Content_Types].xml" extension.vsixmanifest extension)
+# -X -D: no extra fields (uid/gid, timestamps) or directory entries, open vsx rejects them
+# -X -D: no extra fields (uid/gid, timestamps) nor directory entries, open vsx rejects them
+(cd .pack && zip -q -r -X -D ../system24.vsix "[Content_Types].xml" extension.vsixmanifest extension)
 rm -rf .pack
 echo "packed system24.vsix ($pub.system24 $v)"
