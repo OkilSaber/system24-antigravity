@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- frame and panel, like the theme: gap color around a square panel with a labeled border -->
+  <rect width="256" height="256" fill="#221a1c"/>
+  <rect x="24" y="36" width="208" height="196" fill="#1a1416" stroke="#ff5c74" stroke-width="8"/>
+  <!-- panel label sitting on the top border -->
+  <rect x="42" y="20" width="66" height="32" fill="#1a1416"/>
+  <text x="52" y="45" font-family="Menlo, monospace" font-size="28" font-weight="bold" fill="#ff5c74">s24</text>
+  <!-- prompt and block cursor -->
+  <text x="52" y="168" font-family="Menlo, monospace" font-size="88" font-weight="bold" fill="#e2d6d7">&gt;</text>
+  <rect x="120" y="104" width="52" height="72" fill="#ff5c74"/>
+</svg>
