@@ -9,7 +9,6 @@ sed -e "s/__VERSION__/$v/" -e "s/__PUBLISHER__/$pub/" vsix/extension.vsixmanifes
 cp "vsix/[Content_Types].xml" .pack/
 cp -R package.json README.md LICENSE.md themes .pack/extension/
 # -X -D: no extra fields (uid/gid, timestamps) or directory entries, open vsx rejects them
-# -X -D: no extra fields (uid/gid, timestamps) nor directory entries, open vsx rejects them
 (cd .pack && zip -q -r -X -D ../system24.vsix "[Content_Types].xml" extension.vsixmanifest extension)
 rm -rf .pack
 echo "packed system24.vsix ($pub.system24 $v)"
