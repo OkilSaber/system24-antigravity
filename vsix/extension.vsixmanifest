@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
 	<Metadata>
-		<Identity Language="en-US" Id="system24" Version="0.3.0" Publisher="okil" />
+		<Identity Language="en-US" Id="system24" Version="__VERSION__" Publisher="__PUBLISHER__" />
 		<DisplayName>system24</DisplayName>
 		<Description xml:space="preserve">tui-style theme ported from refact0r's system24 discord theme</Description>
 		<Categories>Themes</Categories>
+		<Tags>theme,system24,tui,bloodmoon,light</Tags>
+		<License>extension/LICENSE.md</License>
 		<Properties>
 			<Property Id="Microsoft.VisualStudio.Code.Engine" Value="^1.80.0" />
 		</Properties>
@@ -15,5 +17,7 @@
 	<Dependencies/>
 	<Assets>
 		<Asset Type="Microsoft.VisualStudio.Code.Manifest" Path="extension/package.json" Addressable="true" />
+		<Asset Type="Microsoft.VisualStudio.Services.Content.Details" Path="extension/README.md" Addressable="true" />
+		<Asset Type="Microsoft.VisualStudio.Services.Content.License" Path="extension/LICENSE.md" Addressable="true" />
 	</Assets>
 </PackageManifest>

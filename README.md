@@ -11,7 +11,7 @@ The palettes are tuned for astigmatism: no pure black or pure white background, 
 
 ## Install
 
-Color themes:
+Color themes: search for **system24** in the Extensions view (published on [Open VSX](https://open-vsx.org/extension/OkilSaber/system24)), or build it yourself:
 
 ```bash
 ./pack.sh
@@ -20,23 +20,18 @@ antigravity-ide --install-extension system24.vsix
 
 `pack.sh` runs `build.mjs` (which generates `themes/*.json` from the palettes) and zips the extension by hand.
 
-Custom CSS:
-
-```bash
-antigravity-ide --install-extension subframe7536.custom-ui-style
-mkdir -p ~/.antigravity-ide/system24 && cp system24.css ~/.antigravity-ide/system24/
-```
-
-Then in `settings.json`:
+Custom CSS: install [Custom UI Style](https://open-vsx.org/extension/subframe7536/custom-ui-style), then in `settings.json`:
 
 ```jsonc
 "custom-ui-style.external.imports": [
     { "type": "css", "url": "https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" },
-    "file://${userHome}/.antigravity-ide/system24/system24.css"
+    { "type": "css", "url": "https://raw.githubusercontent.com/OkilSaber/system24-antigravity/main/system24.css" }
 ],
 ```
 
-and run **Custom UI Style: Reload** from the command palette (again after every app update). **Custom UI Style: Rollback** restores the original files.
+and run **Custom UI Style: Reload** from the command palette. Each reload fetches the latest `system24.css` from this repo; run it again after every app update. **Custom UI Style: Rollback** restores the original files.
+
+To tweak the CSS locally instead, copy `system24.css` somewhere and use `"file://${userHome}/path/to/system24.css"` in place of the GitHub url.
 
 ## Follow the macOS appearance
 
@@ -48,7 +43,15 @@ and run **Custom UI Style: Reload** from the command palette (again after every 
 
 ## Customize
 
-Colors live in the `schemes` object at the top of `build.mjs`; run `./pack.sh` and reinstall after editing. Keep `Version` in `vsix/extension.vsixmanifest` in sync with `package.json`.
+Colors live in the `schemes` object at the top of `build.mjs`; run `./pack.sh` and reinstall after editing.
+
+## Publish
+
+Bump `version` in `package.json`, then:
+
+```bash
+./pack.sh && npx ovsx publish system24.vsix -p <token>
+```
 
 ## Credits
 

@@ -1,11 +1,13 @@
 #!/bin/sh
-# builds system24.vsix (vsce produced empty archives here). keep Version in vsix/extension.vsixmanifest in sync with package.json
+# builds system24.vsix (vsce produced empty archives here). version and publisher come from package.json
 set -e
 cd "$(dirname "$0")"
 node build.mjs
 rm -rf .pack system24.vsix && mkdir -p .pack/extension
-cp vsix/extension.vsixmanifest "vsix/[Content_Types].xml" .pack/
-cp -R package.json LICENSE.md themes .pack/extension/
+v=$(node -p "require('./package.json').version"); pub=$(node -p "require('./package.json').publisher")
+sed -e "s/__VERSION__/$v/" -e "s/__PUBLISHER__/$pub/" vsix/extension.vsixmanifest > .pack/extension.vsixmanifest
+cp "vsix/[Content_Types].xml" .pack/
+cp -R package.json README.md LICENSE.md themes .pack/extension/
 (cd .pack && zip -q -r ../system24.vsix "[Content_Types].xml" extension.vsixmanifest extension)
 rm -rf .pack
-echo "packed system24.vsix"
+echo "packed system24.vsix ($pub.system24 $v)"
