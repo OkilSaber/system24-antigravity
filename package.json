@@ -1,0 +1,18 @@
+{
+    "name": "system24",
+    "displayName": "system24",
+    "description": "tui-style theme ported from refact0r's system24 discord theme",
+    "version": "0.3.0",
+    "publisher": "okil",
+    "license": "MIT",
+    "repository": { "type": "git", "url": "https://github.com/OkilSaber/system24-antigravity" },
+    "engines": { "vscode": "^1.80.0" },
+    "categories": ["Themes"],
+    "contributes": {
+        "themes": [
+            { "label": "system24", "uiTheme": "vs-dark", "path": "./themes/system24-color-theme.json" },
+            { "label": "system24 bloodmoon", "uiTheme": "vs-dark", "path": "./themes/system24-bloodmoon-color-theme.json" },
+            { "label": "system24 bloodmoon light", "uiTheme": "vs", "path": "./themes/system24-bloodmoon-light-color-theme.json" }
+        ]
+    }
+}

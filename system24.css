@@ -1,0 +1,192 @@
+/**
+ * system24 for antigravity ide / vscode
+ * port of refact0r's system24 discord theme (https://github.com/refact0r/system24)
+ * pair it with the "system24" or "system24 bloodmoon" color theme.
+ * loaded through the custom-ui-style extension (custom-ui-style.external.imports).
+ */
+
+/* DM Mono is loaded from google fonts by a separate custom-ui-style.external.imports entry */
+
+.monaco-workbench {
+    --s24-gap: 12px; /* spacing between panels */
+    --s24-border-thickness: 2px; /* thickness of panel borders */
+    --s24-transition: 0.2s ease;
+    --s24-label-size: 12px;
+    --s24-label-weight: 500;
+
+    /* colors come from the active color theme */
+    --s24-frame: var(--vscode-titleBar-activeBackground);
+    --s24-panel: var(--vscode-editor-background);
+    --s24-border: var(--vscode-sideBar-border);
+    --s24-border-hover: var(--vscode-focusBorder);
+    --s24-label: var(--vscode-sideBarTitle-foreground);
+}
+
+/* ============ font ============ */
+
+.monaco-workbench,
+.monaco-workbench .part,
+.monaco-workbench .monaco-list,
+.monaco-workbench .monaco-inputbox,
+.monaco-workbench .quick-input-widget,
+.monaco-workbench .monaco-menu,
+.monaco-workbench .statusbar,
+.monaco-workbench .tabs-container,
+.monaco-workbench .monaco-hover {
+    font-family: 'DM Mono', monospace !important;
+    /* system24 uses 300 and -0.05ch; medium weight and normal spacing read better with astigmatism */
+    letter-spacing: 0;
+    font-weight: 500;
+}
+.monaco-workbench .monaco-editor .view-lines,
+.monaco-workbench .monaco-editor .margin,
+.monaco-workbench .xterm {
+    letter-spacing: normal;
+}
+
+/* ============ unrounding ============ */
+
+.monaco-workbench *,
+.monaco-workbench *::before,
+.monaco-workbench *::after {
+    border-radius: 0 !important;
+}
+
+/* ============ panels ============ */
+
+/* the frame (title bar, activity bar, status bar) shows through the gaps */
+.monaco-workbench,
+.monaco-workbench .monaco-grid-view,
+.monaco-workbench .split-view-view {
+    background-color: var(--s24-frame) !important;
+}
+
+/* the gap and the 2px border are drawn on top of each panel's edges */
+.monaco-workbench .part.sidebar,
+.monaco-workbench .part.editor,
+.monaco-workbench .part.panel,
+.monaco-workbench .part.auxiliarybar {
+    position: relative;
+}
+.monaco-workbench .part.sidebar::after,
+.monaco-workbench .part.editor::after,
+.monaco-workbench .part.panel::after,
+.monaco-workbench .part.auxiliarybar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    pointer-events: none;
+    border: calc(var(--s24-gap) / 2) solid var(--s24-frame);
+    /* no gap drawn at the bottom: it would hide the terminal's last line */
+    border-bottom-width: 0;
+    box-shadow: inset 0 0 0 var(--s24-border-thickness) var(--s24-border);
+    transition: box-shadow var(--s24-transition);
+}
+.monaco-workbench .part.sidebar:hover::after,
+.monaco-workbench .part.editor:hover::after,
+.monaco-workbench .part.panel:hover::after,
+.monaco-workbench .part.auxiliarybar:hover::after {
+    box-shadow: inset 0 0 0 var(--s24-border-thickness) var(--s24-border-hover);
+}
+
+/* the theme's own 1px separators are replaced by the boxes */
+.monaco-workbench .part.sidebar,
+.monaco-workbench .part.auxiliarybar,
+.monaco-workbench .part.panel,
+.monaco-workbench .part.panel .composite.title,
+.monaco-workbench .part.activitybar {
+    border: none !important;
+    border-color: transparent !important;
+    outline: none !important;
+}
+.monaco-workbench .part.sidebar.left .composite.title,
+.monaco-workbench .part.panel > .composite.title {
+    border: none !important;
+}
+.monaco-workbench .monaco-sash.vertical::before,
+.monaco-workbench .monaco-sash.horizontal::before {
+    background: transparent !important;
+}
+.monaco-workbench .monaco-sash:hover::before,
+.monaco-workbench .monaco-sash.active::before {
+    background: var(--s24-border-hover) !important;
+}
+
+/* keep content clear of the gap and the label */
+.monaco-workbench .part.sidebar > .composite.title,
+.monaco-workbench .part.auxiliarybar > .composite.title,
+.monaco-workbench .part.editor > .content .title,
+.monaco-workbench .part.auxiliarybar > .composite.title[style*='display: none'] + .content {
+    margin-top: calc(var(--s24-gap) / 2);
+}
+.monaco-workbench .part.sidebar > .composite.title,
+.monaco-workbench .part.auxiliarybar > .composite.title,
+.monaco-workbench .part.panel > .composite.title {
+    padding-left: calc(var(--s24-gap) / 2 + 4px) !important;
+    padding-right: calc(var(--s24-gap) / 2 + 4px) !important;
+}
+/* the panel's tabs move right of the label instead of down: pushing the terminal down cuts its last line */
+.monaco-workbench .part.panel > .composite.title {
+    padding-left: 64px !important;
+}
+.monaco-workbench .part .monaco-scrollable-element > .scrollbar.vertical {
+    right: calc(var(--s24-gap) / 2 + var(--s24-border-thickness)) !important;
+}
+.monaco-workbench .part .monaco-scrollable-element > .scrollbar.horizontal {
+    bottom: calc(var(--s24-gap) / 2 + var(--s24-border-thickness)) !important;
+}
+
+/* ============ panel labels ============ */
+
+.monaco-workbench .part.sidebar::before,
+.monaco-workbench .part.editor::before,
+.monaco-workbench .part.panel::before,
+.monaco-workbench .part.auxiliarybar::before {
+    position: absolute;
+    /* centered on the border but never above the panel's top edge, which clips it */
+    top: max(0px, calc(var(--s24-gap) / 2 + var(--s24-border-thickness) / 2 - 7px));
+    left: calc(var(--s24-gap) / 2 + 8px);
+    z-index: 31;
+    padding: 0 4px;
+    pointer-events: none;
+    color: var(--s24-label);
+    background-color: var(--s24-panel);
+    font-family: 'DM Mono', monospace;
+    font-size: var(--s24-label-size);
+    font-weight: var(--s24-label-weight);
+    line-height: 14px;
+    letter-spacing: 0;
+    transition: color var(--s24-transition);
+}
+.monaco-workbench .part.sidebar:hover::before,
+.monaco-workbench .part.editor:hover::before,
+.monaco-workbench .part.panel:hover::before,
+.monaco-workbench .part.auxiliarybar:hover::before {
+    color: var(--s24-border-hover);
+}
+.monaco-workbench .part.sidebar::before {
+    content: 'sidebar';
+}
+.monaco-workbench .part.editor::before {
+    content: 'editor';
+}
+.monaco-workbench .part.panel::before {
+    content: 'panel';
+}
+.monaco-workbench .part.auxiliarybar::before {
+    content: 'agent';
+}
+
+/* ============ floating widgets ============ */
+
+.monaco-workbench .quick-input-widget,
+.monaco-workbench .monaco-menu-container .monaco-menu,
+.monaco-workbench .context-view .monaco-menu,
+.monaco-workbench .monaco-hover,
+.monaco-workbench .notification-toast,
+.monaco-workbench .notifications-center,
+.monaco-workbench .suggest-widget {
+    box-shadow: none !important;
+    border: var(--s24-border-thickness) solid var(--s24-border-hover) !important;
+}
